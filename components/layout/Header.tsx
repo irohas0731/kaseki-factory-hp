@@ -26,10 +26,14 @@ export function Header() {
       >
         <div className="mx-auto max-w-[1400px] px-6 flex items-center justify-between h-20">
           <Link href="/" className="flex flex-col leading-tight">
-            <span className="font-serif text-lg font-bold tracking-wide text-primary-dark">
+            <span className={`font-serif text-lg font-bold tracking-wide transition-colors duration-300 ${
+              scrolled ? 'text-primary-dark' : 'text-bg'
+            }`}>
               {siteConfig.companyName}
             </span>
-            <span className="section-label text-[10px] text-text-muted">
+            <span className={`section-label text-[10px] transition-colors duration-300 ${
+              scrolled ? 'text-text-muted' : 'text-bg/60'
+            }`}>
               {siteConfig.companyNameEn}
             </span>
           </Link>
@@ -39,7 +43,11 @@ export function Header() {
               <div key={item.href} className="relative group">
                 <Link
                   href={item.href}
-                  className="text-sm font-medium text-text hover:text-primary transition-colors py-2"
+                  className={`text-sm font-medium transition-colors py-2 ${
+                    scrolled
+                      ? 'text-text hover:text-primary'
+                      : 'text-bg/90 hover:text-bg'
+                  }`}
                 >
                   {item.label}
                 </Link>
@@ -63,7 +71,9 @@ export function Header() {
           </nav>
 
           <div className="hidden lg:flex items-center gap-5">
-            <span className="section-label text-sm text-primary-dark font-semibold">
+            <span className={`section-label text-sm font-semibold transition-colors duration-300 ${
+              scrolled ? 'text-primary-dark' : 'text-bg/90'
+            }`}>
               {siteConfig.phone}
             </span>
             <Link
@@ -79,9 +89,9 @@ export function Header() {
             onClick={() => setMobileOpen(true)}
             aria-label="メニューを開く"
           >
-            <span className="block w-6 h-0.5 bg-text" />
-            <span className="block w-6 h-0.5 bg-text" />
-            <span className="block w-6 h-0.5 bg-text" />
+            <span className={`block w-6 h-0.5 transition-colors duration-300 ${scrolled ? 'bg-text' : 'bg-bg'}`} />
+            <span className={`block w-6 h-0.5 transition-colors duration-300 ${scrolled ? 'bg-text' : 'bg-bg'}`} />
+            <span className={`block w-6 h-0.5 transition-colors duration-300 ${scrolled ? 'bg-text' : 'bg-bg'}`} />
           </button>
         </div>
       </header>
