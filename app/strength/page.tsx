@@ -1,8 +1,9 @@
+import Image from 'next/image'
 import type { Metadata } from 'next'
 import { PageHero } from '@/components/shared/PageHero'
 import { Breadcrumb } from '@/components/shared/Breadcrumb'
 import { StrengthCard } from '@/components/shared/StrengthCard'
-import { PlaceholderImage } from '@/components/shared/PlaceholderImage'
+import { IMAGES } from '@/lib/images'
 import { ScrollAnimator } from '@/components/shared/ScrollAnimator'
 import type { StrengthItem } from '@/types'
 
@@ -17,37 +18,52 @@ const strengths: StrengthItem[] = [
     title: '徹底した品質管理体制',
     description: '受入検査から出荷検査まで、各工程ごとに厳格な品質チェックを実施。三次元測定機をはじめとする最新の検査機器を導入し、ミクロン単位の精度を保証しています。不良率の低減と品質の安定化に努め、お客様に安心をお届けします。',
     imageLabel: '品質管理・検査工程の様子',
+    imageSrc: IMAGES.strength.quality,
   },
   {
     number: '02',
     title: '最新鋭の設備と生産能力',
     description: '国内外の最新鋭加工機を多数保有し、高精度な切削・研削・プレス加工に対応。5軸マシニングセンタやワイヤーカット放電加工機など、難加工にも対応できる設備体制を整えています。24時間稼働体制により、短納期のご要望にもお応えします。',
     imageLabel: '最新設備・加工機械の外観',
+    imageSrc: IMAGES.strength.equipment,
   },
   {
     number: '03',
     title: 'ISO認証取得の信頼性',
     description: '品質マネジメントシステムISO 9001、環境マネジメントシステムISO 14001を取得。国際規格に基づいた管理体制のもと、品質と環境への配慮を両立した製造活動を推進しています。',
     imageLabel: 'ISO認証・品質保証体制',
+    imageSrc: IMAGES.strength.iso,
   },
   {
     number: '04',
     title: '熟練の技術力と人材育成',
     description: '50年以上にわたり蓄積してきた加工技術と、それを支える熟練技術者の存在が私たちの最大の財産です。若手技術者への技能伝承プログラムを通じ、世代を超えた技術の継承に取り組んでいます。',
     imageLabel: '技術者・製造現場の様子',
+    imageSrc: IMAGES.strength.technician,
   },
   {
     number: '05',
     title: '多品種少量生産への対応力',
     description: '試作品1個から量産品まで、柔軟な生産体制で幅広いご要望に対応します。設計段階からのVE提案やコストダウン提案も積極的に行い、お客様のものづくりを総合的にサポートいたします。',
     imageLabel: '多品種少量生産ラインの様子',
+    imageSrc: IMAGES.strength.flexible,
   },
   {
     number: '06',
     title: '迅速な納期対応と物流体制',
     description: '独自の生産管理システムにより、受注から出荷までの工程を一元管理。急な納期変更や増産にも柔軟に対応できる体制を構築しています。全国への配送ネットワークも整備しています。',
     imageLabel: '物流・出荷体制の様子',
+    imageSrc: IMAGES.strength.logistics,
   },
+]
+
+const sliderImages = [
+  IMAGES.strengthSlider.slide01,
+  IMAGES.strengthSlider.slide02,
+  IMAGES.strengthSlider.slide03,
+  IMAGES.strengthSlider.slide04,
+  IMAGES.strengthSlider.slide05,
+  IMAGES.strengthSlider.slide06,
 ]
 
 const isoData = [
@@ -75,14 +91,16 @@ export default function StrengthPage() {
               お客様のものづくりパートナーとして選ばれ続ける理由をご紹介します。
             </p>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2">
-              {[1, 2, 3, 4, 5, 6].map((n) => (
-                <PlaceholderImage
-                  key={n}
-                  width={300}
-                  height={200}
-                  label={`スライダー画像${n}`}
-                  className="w-full"
-                />
+              {sliderImages.map((src, n) => (
+                <div key={n} className="relative w-full" style={{ aspectRatio: '300/200' }}>
+                  <Image
+                    src={src}
+                    alt={`スライダー画像${n + 1}`}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 16vw"
+                  />
+                </div>
               ))}
             </div>
           </div>

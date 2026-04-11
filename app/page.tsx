@@ -1,7 +1,8 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { siteConfig } from '@/lib/siteConfig'
+import { IMAGES } from '@/lib/images'
 import { SectionHeader } from '@/components/shared/SectionHeader'
-import { PlaceholderImage } from '@/components/shared/PlaceholderImage'
 import { ProductSlider } from '@/components/shared/ProductSlider'
 import { NewsTab } from '@/components/shared/NewsTab'
 import { ScrollAnimator } from '@/components/shared/ScrollAnimator'
@@ -14,12 +15,12 @@ export default function HomePage() {
       {/* ===== ヒーロー ===== */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
-          <PlaceholderImage
-            width={1920}
-            height={1080}
-            label="メインビジュアル（工場外観・製造現場など）"
-            className="w-full h-full"
-            bgColor="bg-primary-dark/80"
+          <Image
+            src={IMAGES.hero.main}
+            alt="メインビジュアル"
+            fill
+            className="object-cover"
+            priority
           />
         </div>
         <div className="absolute inset-0 bg-gradient-to-b from-primary-dark/40 via-primary-dark/20 to-primary-dark/60" />
@@ -61,18 +62,25 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-0">
-            {['品質管理体制', '最新設備', '技術力'].map((title, i) => (
+            {([
+              { title: '品質管理体制', src: IMAGES.homeStrength.quality },
+              { title: '最新設備', src: IMAGES.homeStrength.equipment },
+              { title: '技術力', src: IMAGES.homeStrength.skill },
+            ] as const).map((item, i) => (
               <div key={i} className="fade-in-up relative group">
-                <PlaceholderImage
-                  width={600}
-                  height={400}
-                  label={`強み${i + 1}: ${title}`}
-                  className="w-full"
-                />
+                <div className="relative w-full" style={{ aspectRatio: '600/400' }}>
+                  <Image
+                    src={item.src}
+                    alt={`強み: ${item.title}`}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 1024px) 100vw, 33vw"
+                  />
+                </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-primary-dark/80 via-transparent to-transparent flex items-end p-8">
                   <div>
                     <span className="section-label text-sm text-bg/50">0{i + 1}</span>
-                    <h3 className="font-serif text-xl text-bg font-bold mt-1">{title}</h3>
+                    <h3 className="font-serif text-xl text-bg font-bold mt-1">{item.title}</h3>
                   </div>
                 </div>
               </div>
@@ -98,20 +106,26 @@ export default function HomePage() {
           <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-center">
             <div className="w-full lg:w-[55%] flex gap-4 fade-in-up">
               <div className="w-1/2 pt-12">
-                <PlaceholderImage
-                  width={400}
-                  height={500}
-                  label="設備写真1（加工機械など）"
-                  className="w-full"
-                />
+                <div className="relative w-full" style={{ aspectRatio: '400/500' }}>
+                  <Image
+                    src={IMAGES.homeTechnology.machine}
+                    alt="加工機械"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 1024px) 50vw, 25vw"
+                  />
+                </div>
               </div>
               <div className="w-1/2">
-                <PlaceholderImage
-                  width={400}
-                  height={500}
-                  label="設備写真2（検査機器など）"
-                  className="w-full"
-                />
+                <div className="relative w-full" style={{ aspectRatio: '400/500' }}>
+                  <Image
+                    src={IMAGES.homeTechnology.inspection}
+                    alt="検査機器"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 1024px) 50vw, 25vw"
+                  />
+                </div>
               </div>
             </div>
             <div className="w-full lg:w-[45%] fade-in-up">
@@ -181,13 +195,15 @@ export default function HomePage() {
       {/* ===== 会社情報 + アクセス 2カラムバナー ===== */}
       <section className="grid grid-cols-1 md:grid-cols-2">
         <Link href="/company" className="relative group overflow-hidden block">
-          <PlaceholderImage
-            width={960}
-            height={500}
-            label="会社情報バナー画像"
-            className="w-full min-h-[300px] md:min-h-[400px]"
-            bgColor="bg-primary/20"
-          />
+          <div className="relative w-full min-h-[300px] md:min-h-[400px]" style={{ aspectRatio: '960/500' }}>
+            <Image
+              src={IMAGES.banners.company}
+              alt="会社情報"
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
+          </div>
           <div className="absolute inset-0 bg-primary-dark/60 group-hover:bg-primary-dark/70 transition-colors flex items-center justify-center">
             <div className="text-center">
               <p className="section-label text-sm text-bg/50 mb-2">COMPANY</p>
@@ -200,13 +216,15 @@ export default function HomePage() {
           </div>
         </Link>
         <Link href="/company/access" className="relative group overflow-hidden block">
-          <PlaceholderImage
-            width={960}
-            height={500}
-            label="アクセスバナー画像"
-            className="w-full min-h-[300px] md:min-h-[400px]"
-            bgColor="bg-primary-light/20"
-          />
+          <div className="relative w-full min-h-[300px] md:min-h-[400px]" style={{ aspectRatio: '960/500' }}>
+            <Image
+              src={IMAGES.banners.access}
+              alt="アクセス"
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
+          </div>
           <div className="absolute inset-0 bg-primary-dark/60 group-hover:bg-primary-dark/70 transition-colors flex items-center justify-center">
             <div className="text-center">
               <p className="section-label text-sm text-bg/50 mb-2">ACCESS</p>

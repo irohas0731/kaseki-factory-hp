@@ -1,8 +1,9 @@
+import Image from 'next/image'
 import type { Metadata } from 'next'
 import { siteConfig, fullAddress } from '@/lib/siteConfig'
+import { IMAGES } from '@/lib/images'
 import { PageHero } from '@/components/shared/PageHero'
 import { Breadcrumb } from '@/components/shared/Breadcrumb'
-import { PlaceholderImage } from '@/components/shared/PlaceholderImage'
 import { ScrollAnimator } from '@/components/shared/ScrollAnimator'
 
 export const metadata: Metadata = {
@@ -21,12 +22,16 @@ export default function AccessPage() {
         <div className="mx-auto max-w-[1200px] px-6">
           {/* 工場写真 */}
           <div className="mb-16 fade-in-up">
-            <PlaceholderImage
-              width={1200}
-              height={500}
-              label="工場外観写真"
-              className="w-full"
-            />
+            <div className="relative w-full" style={{ aspectRatio: '1200/500' }}>
+              <Image
+                src={IMAGES.facility.exterior}
+                alt="工場外観"
+                fill
+                className="object-cover"
+                sizes="100vw"
+                priority
+              />
+            </div>
           </div>
 
           {/* 地図 */}

@@ -1,8 +1,9 @@
+import Image from 'next/image'
 import type { Metadata } from 'next'
 import { siteConfig } from '@/lib/siteConfig'
+import { IMAGES } from '@/lib/images'
 import { PageHero } from '@/components/shared/PageHero'
 import { Breadcrumb } from '@/components/shared/Breadcrumb'
-import { PlaceholderImage } from '@/components/shared/PlaceholderImage'
 import { ScrollAnimator } from '@/components/shared/ScrollAnimator'
 
 export const metadata: Metadata = {
@@ -21,12 +22,15 @@ export default function MessagePage() {
         <div className="mx-auto max-w-[1000px] px-6">
           <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 fade-in-up">
             <div className="w-full lg:w-[40%] flex-shrink-0">
-              <PlaceholderImage
-                width={400}
-                height={550}
-                label="代表取締役社長の写真"
-                className="w-full"
-              />
+              <div className="relative w-full" style={{ aspectRatio: '400/550' }}>
+                <Image
+                  src={IMAGES.staff.ceo}
+                  alt="代表取締役社長の写真"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 40vw"
+                />
+              </div>
             </div>
             <div className="w-full lg:w-[60%]">
               <h2 className="font-serif text-[26px] md:text-[32px] font-bold text-text mb-8 leading-relaxed">

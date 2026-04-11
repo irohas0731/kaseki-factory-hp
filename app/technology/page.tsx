@@ -1,8 +1,9 @@
+import Image from 'next/image'
 import type { Metadata } from 'next'
 import { PageHero } from '@/components/shared/PageHero'
 import { Breadcrumb } from '@/components/shared/Breadcrumb'
 import { SectionHeader } from '@/components/shared/SectionHeader'
-import { PlaceholderImage } from '@/components/shared/PlaceholderImage'
+import { IMAGES } from '@/lib/images'
 import { EquipmentTable } from '@/components/shared/EquipmentTable'
 import { ScrollAnimator } from '@/components/shared/ScrollAnimator'
 import type { EquipmentCategory, EquipmentItem } from '@/types'
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
   description: '株式会社化石工業の技術力と保有設備をご紹介。最新鋭のマシニングセンタや検査機器を多数保有し、高精度な加工を実現します。',
 }
 
-const categories: EquipmentCategory[] = [
+const categories: (EquipmentCategory & { images: string[] })[] = [
   {
     id: 'cutting',
     name: '設備A（切削加工設備）',
@@ -23,6 +24,7 @@ const categories: EquipmentCategory[] = [
       { label: '対応素材', value: 'アルミ・鉄・ステンレス・チタン・樹脂' },
     ],
     imageCount: 3,
+    images: [IMAGES.technology.cutting01, IMAGES.technology.cutting02, IMAGES.technology.cutting03],
   },
   {
     id: 'grinding',
@@ -34,6 +36,7 @@ const categories: EquipmentCategory[] = [
       { label: '最大加工径', value: 'φ400mm' },
     ],
     imageCount: 2,
+    images: [IMAGES.technology.grinding01, IMAGES.technology.grinding02],
   },
   {
     id: 'edm',
@@ -45,6 +48,7 @@ const categories: EquipmentCategory[] = [
       { label: '最大ワーク重量', value: '500kg' },
     ],
     imageCount: 2,
+    images: [IMAGES.technology.edm01, IMAGES.technology.edm02],
   },
   {
     id: 'inspection',
@@ -56,6 +60,7 @@ const categories: EquipmentCategory[] = [
       { label: '対応規格', value: 'JIS / ISO' },
     ],
     imageCount: 2,
+    images: [IMAGES.technology.inspection01, IMAGES.technology.inspection02],
   },
 ]
 
@@ -95,14 +100,20 @@ export default function TechnologyPage() {
                 <div className={`flex flex-col ${catIdx % 2 === 1 ? 'lg:flex-row-reverse' : 'lg:flex-row'} gap-12 lg:gap-20`}>
                   <div className="w-full lg:w-[55%]">
                     <div className={`grid ${cat.imageCount > 2 ? 'grid-cols-2' : 'grid-cols-1'} gap-3`}>
-                      {Array.from({ length: cat.imageCount }).map((_, imgIdx) => (
-                        <PlaceholderImage
+                      {cat.images.map((src, imgIdx) => (
+                        <div
                           key={imgIdx}
-                          width={imgIdx === 0 && cat.imageCount > 2 ? 600 : 400}
-                          height={300}
-                          label={`${cat.name}の画像${imgIdx + 1}`}
-                          className={`w-full ${imgIdx === 0 && cat.imageCount > 2 ? 'col-span-2' : ''}`}
-                        />
+                          className={`relative w-full ${imgIdx === 0 && cat.imageCount > 2 ? 'col-span-2' : ''}`}
+                          style={{ aspectRatio: imgIdx === 0 && cat.imageCount > 2 ? '600/300' : '400/300' }}
+                        >
+                          <Image
+                            src={src}
+                            alt={`${cat.name}の画像${imgIdx + 1}`}
+                            fill
+                            className="object-cover"
+                            sizes="(max-width: 1024px) 100vw, 55vw"
+                          />
+                        </div>
                       ))}
                     </div>
                   </div>

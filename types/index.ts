@@ -49,6 +49,7 @@ export type StrengthItem = {
   title: string
   description: string
   imageLabel: string
+  imageSrc: string
 }
 
 export type EquipmentItem = {
